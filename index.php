@@ -2,8 +2,17 @@
 $title = "Login";
 include("includes/config.php");
 include("includes/header.php");
+session_start();
 
-include_once("includes/login.php");
+if(empty($_SESSION["username"]))
+{
+    include("includes/login.php");
+} 
+
+if(!empty($_SESSION["username"]))
+{
+    include("includes/loggedin.php");
+}
 
 /*$stmt = $pdo->query("SELECT * FROM users");
 while ($row = $stmt->fetch()) {

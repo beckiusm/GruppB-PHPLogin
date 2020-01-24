@@ -1,8 +1,6 @@
 <?php
 
-
-require_once __DIR__.'/../vendor/autoload.php';
-
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -23,7 +21,7 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 try {
-     $pdo = new PDO($dsn, $user, $pass, $options);
+    $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-     throw new \PDOException($e->getMessage(), (int)$e->getCode());
+    throw new \PDOException($e->getMessage(), (int) $e->getCode());
 }

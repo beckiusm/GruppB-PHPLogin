@@ -1,7 +1,8 @@
 <?php
 $title = "Login";
-include("includes/config.php");
+include("classes/Register.class.php");
 include("includes/header.php");
+
 
 include_once("includes/login.php");
 

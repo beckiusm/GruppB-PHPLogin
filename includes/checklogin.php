@@ -1,29 +1,20 @@
 <?php
-    include_once('config.php');
-    $loggedIn = false;
+include_once('config.php');
+session_start();
+if (isset($_POST["username"]) && isset($_POST["password"])) {
     $postUsername = filter_input(INPUT_POST, 'username');
     $postPassword = filter_input(INPUT_POST, 'password');
-    $pwCorrect = 0;
-    $stmt = $pdo->query("SELECT * FROM users");
-    while ($row = $stmt->fetch()) {
-        if(password_verify($postPassword, $row['password']))
-        {
-            $pwCorret = 1;
-        } 
-        if($row["username"] == $postUsername && $pwCorrect = 1)
-        {
-            $loggedIn = true;
-            session_start();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$postUsername]);
+    $row = $stmt->fetch();
+    if ($stmt->rowCount() > 0) {
+        if (password_verify($postPassword, $row['password'])) {
             $_SESSION["username"] = $row["username"];
             $_SESSION["email"] = $row["email"];
-            include('loggedin.php');
+        } else {
+            $_SESSION["error"] = "Wrong password";
         }
+    } else {
+        $_SESSION["error"] = "Username does not exist";
     }
-    if($loggedIn == false)
-    {
-        $message = "Wrong username / password";
-        //echo "<script type='text/javascript'>console.log('$message');</script>";
-        echo "<script>alert('$message');window.location.href='../index.php';</script>";
-    }
-
-?>
+}

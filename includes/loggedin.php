@@ -1,11 +1,4 @@
-<?php
-if(!empty($_SESSION)) 
-{
-    include('header.php');
-    echo "header linked".PHP_EOL;
-  ?>
-  <body>
-
+<body>
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="cover-container">
@@ -13,7 +6,7 @@ if(!empty($_SESSION))
             <div class="inner">
               <h3 class="masthead-brand">Welcome to PHP site</h3>
               <nav class="nav nav-masthead">
-                <a class="btn btn-danger" href="logout.php">Logout</a>
+                <a class="btn btn-danger" href="includes/logout.php">Logout</a>
                 <a class="nav-link" href="#">Features</a>
                 <a class="nav-link" href="#">Contact</a>
               </nav>
@@ -34,8 +27,3 @@ if(!empty($_SESSION))
     </div>
   </body>
 </html>
-  <?php
-} else 
-{
-    header("Location: ../index.php");
-}

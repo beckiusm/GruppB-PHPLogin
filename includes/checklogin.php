@@ -1,27 +1,29 @@
 <?php
     include_once('config.php');
-
-    //print_r($_POST);
+    $loggedIn = false;
     $postUsername = filter_input(INPUT_POST, 'username');
     $postPassword = filter_input(INPUT_POST, 'password');
-    $loggedIn = false;
-
+    $pwCorrect = 0;
     $stmt = $pdo->query("SELECT * FROM users");
     while ($row = $stmt->fetch()) {
-        if($row["username"] == $postUsername && $row["password"] == $postPassword) {
+        if(password_verify($postPassword, $row['password']))
+        {
+            $pwCorret = 1;
+        } 
+        if($row["username"] == $postUsername && $pwCorrect = 1)
+        {
+            $loggedIn = true;
             session_start();
             $_SESSION["username"] = $row["username"];
             $_SESSION["email"] = $row["email"];
-            $loggedIn = true;
-            //header("Location: loggedin.php");
-            //header("Location: ../index.php");
-            echo "frontpage linked".PHP_EOL;
             include('loggedin.php');
         }
     }
-
-    if($loggedIn == false){
-        header("Location: ../index.php");
+    if($loggedIn == false)
+    {
+        $message = "Wrong username / password";
+        //echo "<script type='text/javascript'>console.log('$message');</script>";
+        echo "<script>alert('$message');window.location.href='../index.php';</script>";
     }
 
 ?>

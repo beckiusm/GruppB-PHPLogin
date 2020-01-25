@@ -10,7 +10,7 @@
         {
             $pwCorret = 1;
         } 
-        if($row["username"] == $postUsername && $pwCorrect = 1)
+        if($row["username"] == $postUsername && $pwCorrect == 1)
         {
             $loggedIn = true;
             session_start();

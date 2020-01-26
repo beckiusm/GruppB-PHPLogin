@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="inner cover">
-        <h1 class="cover-heading">Logged in!.</h1>
+        <h1 class="cover-heading">You are now logged in!</h1>
         <p class="lead">Username : <?php echo $_SESSION['username']?></p>
         <p class="lead">Email : <?php echo $_SESSION['email']?></p>
       </div>

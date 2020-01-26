@@ -50,6 +50,7 @@ class Register
             $_SESSION["signup"] = "Username already exists :(" ;
         } else {
             $this->newUser($this->username, $this->password, $this->email);
+            $_SESSION["signup"] = "Sign up sucess! You can now login";
         }
     }
 

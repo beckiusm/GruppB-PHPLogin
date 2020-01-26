@@ -2,22 +2,12 @@
 $title = "Login";
 include("classes/Register.class.php");
 include("includes/header.php");
-session_unset();
+include("includes/checklogin.php");
 
-if(empty($_SESSION["username"]))
-{
+if (empty($_SESSION["username"])) {
     include("includes/login.php");
-} 
-
-if(!empty($_SESSION["username"]))
-{
+} else {
     include("includes/loggedin.php");
 }
 
-/*$stmt = $pdo->query("SELECT * FROM users");
-while ($row = $stmt->fetch()) {
-    echo $row["username"];
-}*/
-
 include("includes/footer.php");
-?>

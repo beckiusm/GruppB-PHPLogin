@@ -3,11 +3,12 @@
     <div class="cover-container">
       <div class="masthead clearfix">
         <div class="inner">
-          <h3 class="masthead-brand">Welcome to PHP site</h3>
+          <h3 class="masthead-brand">PHP login-site</h3>
+          <a class="btn btn-danger" href="./includes/logout.php">Logout</a>
           <nav class="nav nav-masthead">
-            <a class="btn btn-danger" href="includes/logout.php">Logout</a>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Contact</a>
+            
+            <a class="nav-link" href="#">Some link1</a>
+            <a class="nav-link" href="#">Some link2</a>
           </nav>
         </div>
       </div>

@@ -4,6 +4,7 @@ include("classes/Register.class.php");
 include("includes/header.php");
 include("includes/checklogin.php");
 
+
 if (empty($_SESSION["username"])) {
     include("includes/login.php");
 } else {

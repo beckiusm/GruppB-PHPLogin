@@ -47,9 +47,10 @@ class Register
         $stmt = $this->pdo->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
         if ($stmt->rowCount() > 0) {
-            echo "User already exists";
+            $_SESSION["signup"] = "User already exists";
         } else {
             $this->newUser($this->username, $this->password, $this->email);
+            $_SESSION["signup"] = "Sign up sucess! You can now login";
         }
     }
 

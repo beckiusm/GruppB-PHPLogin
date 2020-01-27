@@ -1,27 +1,22 @@
 <?php
-    include_once('config.php');
-
-    //print_r($_POST);
+include_once('./classes/DB.class.php');
+$db = new DB();
+$pdo = $db->pdo;
+if (isset($_POST["username"]) && isset($_POST["password"])) {
     $postUsername = filter_input(INPUT_POST, 'username');
     $postPassword = filter_input(INPUT_POST, 'password');
-    $loggedIn = false;
-
-    $stmt = $pdo->query("SELECT * FROM users");
-    while ($row = $stmt->fetch()) {
-        if($row["username"] == $postUsername && $row["password"] == $postPassword) {
-            session_start();
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$postUsername]);
+    $row = $stmt->fetch();
+    session_start();
+    if ($stmt->rowCount() > 0) {
+        if (password_verify($postPassword, $row['password'])) {
             $_SESSION["username"] = $row["username"];
             $_SESSION["email"] = $row["email"];
-            $loggedIn = true;
-            //header("Location: loggedin.php");
-            //header("Location: ../index.php");
-            echo "frontpage linked".PHP_EOL;
-            include('loggedin.php');
+        } else {
+            $_SESSION["error"] = "Wrong password";
         }
+    } else {
+        $_SESSION["error"] = "Username does not exist";
     }
-
-    if($loggedIn == false){
-        header("Location: ../index.php");
-    }
-
-?>
+}

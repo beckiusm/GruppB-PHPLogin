@@ -1,44 +1,38 @@
 <?php
 
+include_once("DB.class.php");
+
 class Login 
 {
-    private $username = "";
-    private $password = "";
-    private $email = "";
+    private $username;
+    private $password;
+    private $email;
     
-    public function __construct($username, $password, $password)
-    
+    public function __construct($username, $password, $email)    
     {
-        require_once __DIR__ . '/../vendor/autoload.php';
-    
-            $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-            $dotenv->load();
-        $this->host = getenv("DB_ADDRESS");
-            $this->port = getenv("DB_PORT");
-            $this->db = getenv("DB_NAME");
-            $this->user = getenv("DB_USER");
-            $this->pass = getenv("DB_PASSWORD");
-    
-            $this->dsn = "mysql:host=$this->host;port=$this->port;dbname=$this->db;charset=$this->charset";
-            $this->options = [
-                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES   => false,
-            ];
-    
-            try {
-                $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
-            } catch (\PDOException $e) {
-                throw new \PDOException($e->getMessage(), (int) $e->getCode());
-            }
+        $this->username = $username;
+        $this->password = $password;
+        $this->email = $email;
+        $db = new DB();
+        $this->db = $db->pdo;
+        $this->checkIfUserExists($email);
     }
 
-    session_start();
-    
-    public function ifUserExits($username)
+    public function checkIfUserNotExists($email)
     {
-        $stmt = $this->pdo->prepare("SELECT username FROM users WHERE username = ?");
-
+        $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        if ($stmt->rowCount() > 0) {
+            $_SESSION["signin"] = "Username doesn't exists!";
+        } else {
+            $this->alreadyUser($this->username, $this->password, $this->email);
+            $_SESSION["singin"] = "Sign In success!";
+        }
     }
-    
+
+    public function alreadyUser($username, $password, $email)
+    {
+        $stmt = $this->db->query("SELECT * FROM users (username, password, email) VALUE (?,?,?)");
+        $stmt->execute([$username, $password, $email]);
+    }
 }

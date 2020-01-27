@@ -1,5 +1,7 @@
 <?php
-include_once('config.php');
+include_once('./classes/DB.class.php');
+$db = new DB();
+$pdo = $db->pdo;
 if (isset($_POST["username"]) && isset($_POST["password"])) {
     $postUsername = filter_input(INPUT_POST, 'username');
     $postPassword = filter_input(INPUT_POST, 'password');

@@ -10,6 +10,7 @@ class registerTest extends TestCase
     public $username = "TestUser";
     public $password = "123";
     public $email = "123@hotmail.com";
+    public $notAnEmail = "notAnEmail";
 
     public function testLoginIsObject()
     {
@@ -29,5 +30,8 @@ class registerTest extends TestCase
     {
         $hashedPw = password_hash($this->password, PASSWORD_DEFAULT);
         $this->assertTrue(password_verify($this->password, $hashedPw));
+    }
+    public function testEmail() {
+        $this->assertFalse(filter_var($this->notAnEmail, FILTER_VALIDATE_EMAIL));
     }
 }

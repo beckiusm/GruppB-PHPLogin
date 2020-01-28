@@ -29,7 +29,7 @@ class Login
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $row = $stmt->fetch();
-     
+
         if ($stmt->rowCount() > 0) {
             $this->checkLogin($row);
         } else {

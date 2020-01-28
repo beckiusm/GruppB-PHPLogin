@@ -6,4 +6,3 @@ include("includes/checkSignUp.php");
 include("includes/signup.php");
 
 include("includes/footer.php");
-?>

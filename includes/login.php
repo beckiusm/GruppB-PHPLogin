@@ -31,7 +31,7 @@
                 if (!empty($_SESSION["error"])) {
                     echo $_SESSION["error"];
                 }
-                if(!empty($_SESSION["signup"])) {
+                if (!empty($_SESSION["signup"])) {
                     echo $_SESSION["signup"];
                 }
                 ?>

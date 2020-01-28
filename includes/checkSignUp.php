@@ -7,5 +7,5 @@ if (isset($_POST["newUsername"]) && isset($_POST["newPassword"]) && isset($_POST
     $newPassword = filter_input(INPUT_POST, 'newPassword');
     $newEmail = filter_input(INPUT_POST, 'newEmail');
 
-    $checkSignUp = new Register ($newUsername,$newPassword, $newEmail);
+    $checkSignUp = new Register($newUsername, $newPassword, $newEmail);
 }

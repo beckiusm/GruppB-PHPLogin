@@ -2,13 +2,8 @@
 include_once('./classes/Login.class.php');
 
 if (isset($_POST["email"]) && isset($_POST["password"])) {
-    session_start();
-    $email= filter_input(INPUT_POST, 'email');
+
+    $email = filter_input(INPUT_POST, 'email');
     $password = filter_input(INPUT_POST, 'password');
-    $checkLogin = new Login ($email, $password);
-
+    $checkLogin = new Login($email, $password);
 }
-
-
-
-

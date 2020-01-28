@@ -12,18 +12,18 @@ class Register
     public function __construct($username, $password, $email)
     {
         $this->checkValidation($email, $username, $password);
-        if($this->email == false) {
+        if ($this->email == false) {
             echo "You shall not register with a bad email from api/terminal";
-        }else {
+        } else {
             $db = new DB();
             $this->db = $db->getDB();
             $this->hashPassword($this->password);
             $this->checkIfUserExists($this->email);
         }
-       
     }
 
-    private function checkValidation($email, $username, $password) {
+    private function checkValidation($email, $username, $password)
+    {
         $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->username = filter_var($username, FILTER_SANITIZE_STRING);
         $this->password = filter_var($password, FILTER_SANITIZE_STRING);
@@ -31,11 +31,11 @@ class Register
 
     private function checkIfUserExists($email)
     {
-       
+
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
         if ($stmt->rowCount() > 0) {
-            $_SESSION["signup"] = "Username already exists :(" ;
+            $_SESSION["signup"] = "Email already exists :(";
         } else {
             $this->newUser($this->username, $this->password, $this->email);
             $_SESSION["signup"] = "Sign up success! You can now login.";
@@ -54,4 +54,3 @@ class Register
         $stmt->execute([$username, $password, $email]);
     }
 }
-

@@ -11,13 +11,18 @@ class Register
 
     public function __construct($username, $password, $email)
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->email = $email;
+        $this->checkValdation($email, $username, $password);
         $db = new DB();
         $this->db = $db->pdo;
-        $this->hashPassword($password);
-        $this->checkIfUserExists($email);
+        $this->hashPassword($this->password);
+        $this->checkIfUserExists($this->email);
+    }
+
+    private function checkValdation($email, $username, $password) {
+        $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        $this->username = filter_var($username, FILTER_SANITIZE_STRING);
+        $this->password = filter_var($password, FILTER_SANITIZE_STRING);
+        
     }
 
     private function checkIfUserExists($email)

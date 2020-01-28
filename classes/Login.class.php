@@ -14,7 +14,7 @@ class Login
         $this->password = $password;
         $this->email = $email;
         $db = new DB();
-        $this->db = $db->pdo;
+        $this->db = $db->getDB();
         $this->checkIfUserNotExists($email);
     }
 
@@ -22,7 +22,7 @@ class Login
     {
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        if ($stmt->rowCount() = 0) {
+        if ($stmt->rowCount() === 0) {
             $_SESSION["signin"] = "Email doesn't exists!";
         } else {
             $this->alreadyUser($this->username, $this->password, $this->email);

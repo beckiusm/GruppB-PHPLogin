@@ -12,9 +12,8 @@ class Register
     public function __construct($username, $password, $email)
     {
         $this->checkValdation($email, $username, $password);
-        if($this->email == false)
-        {
-            echo "You shall not login with api, bad boy!";
+        if($this->email == false) {
+            echo "You shall not register with a bad email from api/terminal";
         }else {
             $db = new DB();
             $this->db = $db->getDB();
@@ -55,3 +54,4 @@ class Register
         $stmt->execute([$username, $password, $email]);
     }
 }
+

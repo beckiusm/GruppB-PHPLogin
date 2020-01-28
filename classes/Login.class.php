@@ -6,10 +6,11 @@ class Login
 {
     private $password;
     private $email;
+    private $db;
 
     public function __construct($email, $password)
     {
-        $this->checkValdation($email, $password);
+        $this->checkValidation($email, $password);
         $this->password = $password;
         $this->email = $email;
         $db = new DB();
@@ -17,7 +18,7 @@ class Login
         $this->checkIfEmailExists($this->email);
     }
 
-    private function checkValdation($email, $password)
+    private function checkValidation($email, $password)
     {
         $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->password = filter_var($password, FILTER_SANITIZE_STRING);
@@ -28,7 +29,7 @@ class Login
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $row = $stmt->fetch();
-        session_start();
+     
         if ($stmt->rowCount() > 0) {
             $this->checkLogin($row);
         } else {

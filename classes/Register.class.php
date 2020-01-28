@@ -11,7 +11,7 @@ class Register
 
     public function __construct($username, $password, $email)
     {
-        $this->checkValdation($email, $username, $password);
+        $this->checkValidation($email, $username, $password);
         if($this->email == false) {
             echo "You shall not register with a bad email from api/terminal";
         }else {
@@ -23,7 +23,7 @@ class Register
        
     }
 
-    private function checkValdation($email, $username, $password) {
+    private function checkValidation($email, $username, $password) {
         $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->username = filter_var($username, FILTER_SANITIZE_STRING);
         $this->password = filter_var($password, FILTER_SANITIZE_STRING);

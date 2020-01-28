@@ -20,7 +20,7 @@ class Register
         $this->checkIfUserExists($email);
     }
 
-    public function checkIfUserExists($email)
+    private function checkIfUserExists($email)
     {
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
@@ -37,7 +37,7 @@ class Register
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function newUser($username, $password, $email)
+    private function newUser($username, $password, $email)
     {
         $stmt = $this->db->prepare("INSERT into users (username, password, email) 
         VALUES (?, ?, ?)");

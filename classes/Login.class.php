@@ -2,20 +2,20 @@
 
 include_once("DB.class.php");
 
-class Login 
+class Login
 {
     private $username;
     private $password;
     private $email;
     
-    public function __construct($username, $password, $email)    
+    public function __construct($username, $password, $email)
     {
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
         $db = new DB();
         $this->db = $db->pdo;
-        $this->checkIfUserExists($email);
+        $this->checkIfUserNotExists($email);
     }
 
     public function checkIfUserNotExists($email)

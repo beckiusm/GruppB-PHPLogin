@@ -11,17 +11,27 @@ class Register
 
     public function __construct($username, $password, $email)
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->email = $email;
-        $db = new DB();
-        $this->db = $db->pdo;
-        $this->hashPassword($password);
-        $this->checkIfUserExists($email);
+        $this->checkValdation($email, $username, $password);
+        if($this->email == false) {
+            echo "You shall not register with a bad email from api/terminal";
+        }else {
+            $db = new DB();
+            $this->db = $db->getDB();
+            $this->hashPassword($this->password);
+            $this->checkIfUserExists($this->email);
+        }
+       
     }
 
-    public function checkIfUserExists($email)
+    private function checkValdation($email, $username, $password) {
+        $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        $this->username = filter_var($username, FILTER_SANITIZE_STRING);
+        $this->password = filter_var($password, FILTER_SANITIZE_STRING);
+    }
+
+    private function checkIfUserExists($email)
     {
+       
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
         if ($stmt->rowCount() > 0) {
@@ -37,10 +47,11 @@ class Register
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
-    public function newUser($username, $password, $email)
+    private function newUser($username, $password, $email)
     {
         $stmt = $this->db->prepare("INSERT into users (username, password, email) 
         VALUES (?, ?, ?)");
         $stmt->execute([$username, $password, $email]);
     }
 }
+

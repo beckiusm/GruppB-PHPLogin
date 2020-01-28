@@ -15,7 +15,7 @@ class Register
         $this->password = $password;
         $this->email = $email;
         $db = new DB();
-        $this->db = $db->pdo;
+        $this->db = $db->getDB();
         $this->hashPassword($password);
         $this->checkIfUserExists($email);
     }

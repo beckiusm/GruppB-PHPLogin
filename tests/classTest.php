@@ -16,7 +16,8 @@ class registerTest extends TestCase
     {
         $register = new Register($this->username, $this->password, $this->email);
         $this->assertIsObject($register);
-        $this->assertIsObject(new DB());
+        $db = new DB();
+        $this->assertIsObject($db->getDB());
     }
 
     public function testClassHasAttribute()

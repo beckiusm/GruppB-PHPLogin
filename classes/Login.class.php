@@ -22,7 +22,7 @@ class Login
     {
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        if ($stmt->rowCount() > 0) {
+        if (!$stmt->rowCount() = 0) {
             $_SESSION["signin"] = "Username doesn't exists!";
         } else {
             $this->alreadyUser($this->username, $this->password, $this->email);
@@ -32,7 +32,7 @@ class Login
 
     public function alreadyUser($username, $password, $email)
     {
-        $stmt = $this->db->query("SELECT * FROM users (username, password, email) VALUE (?,?,?)");
+        $stmt = $this->db->prepare("SELECT * FROM users (username, password, email) VALUE (?,?,?)");
         $stmt->execute([$username, $password, $email]);
     }
 }

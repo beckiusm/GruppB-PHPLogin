@@ -1,14 +1,12 @@
 <?php
-include_once('./classes/DB.class.php');
-include_once('/classes/Login.class.php');
-$db = new DB();
-$pdo = $db->pdo;
+include_once('./classes/Login.class.php');
 
-if ((isset($_POST["email"])) && isset($_POST["password"])) {
+if (isset($_POST["email"]) && isset($_POST["password"])) {
 
-    $postEmail= filter_input(INPUT_POST, 'email');
-    $postPassword = filter_input(INPUT_POST, 'password');
-    $checkLogin = new Login ($newEmail, $newPassword);
+    $email= filter_input(INPUT_POST, 'email');
+    $password = filter_input(INPUT_POST, 'password');
+    $checkLogin = new Login ($email, $password);
+
 }
 
 

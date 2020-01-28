@@ -4,7 +4,6 @@ include_once("DB.class.php");
 
 class Login
 {
-    private $username;
     private $password;
     private $email;
     
@@ -26,24 +25,25 @@ class Login
 
     public function checkIfEmailExists($email)
     {
-       
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE username AND email = ?");
-
-        if ($stmt->rowCount() > 0) {
-            if (password_verify($postPassword, $row['password'])) {
-                $_SESSION["username"] = $row["username"];
-                $_SESSION["email"] = $row["email"];
-            } else {
-                $_SESSION["error"] = "Wrong password";
-            }
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $row = $stmt->fetch();
+        session_start();
+        if ($row = $stmt->rowCount() > 0) {
+            $this->checkLogin($row);
         } else {
-            $_SESSION["error"] = "Username does not exist";
+            $_SESSION["error"] = "Email does not exist";
         }
     }
 
-    public function alreadyUser($username, $password, $email)
+    public function checkLogin($row)
     {
-        $stmt = $this->db->prepare("SELECT * FROM users (username, password, email) VALUE (?,?,?)");
-        $stmt->execute([$username, $password, $email]);
+        if (password_verify($this->password, $row['password'])) {
+            $_SESSION["username"] = $row["username"];
+            $_SESSION["email"] = $row["email"];
+            
+        } else {
+            $_SESSION["error"] = "Wrong password";
+        }
     }
 }

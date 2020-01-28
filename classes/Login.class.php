@@ -8,25 +8,36 @@ class Login
     private $password;
     private $email;
     
-    public function __construct($username, $password, $email)
+    public function __construct($email, $password)
     {
-        $this->username = $username;
+        $this->checkValdation($email, $password);
         $this->password = $password;
         $this->email = $email;
         $db = new DB();
-        $this->db = $db->pdo;
-        $this->checkIfUserNotExists($email);
+        $this->db = $db->getDB();
+        $this->checkIfEmailExists($this->email);
     }
 
-    public function checkIfUserNotExists($email)
+    private function checkValdation($email, $password) 
     {
-        $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        if ($stmt->rowCount() = 0) {
-            $_SESSION["signin"] = "Email doesn't exists!";
+        $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        $this->password = filter_var($password, FILTER_SANITIZE_STRING);
+    }
+
+    public function checkIfEmailExists($email)
+    {
+       
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE username AND email = ?");
+
+        if ($stmt->rowCount() > 0) {
+            if (password_verify($postPassword, $row['password'])) {
+                $_SESSION["username"] = $row["username"];
+                $_SESSION["email"] = $row["email"];
+            } else {
+                $_SESSION["error"] = "Wrong password";
+            }
         } else {
-            $this->alreadyUser($this->username, $this->password, $this->email);
-            $_SESSION["singin"] = "Sign In success!";
+            $_SESSION["error"] = "Username does not exist";
         }
     }
 

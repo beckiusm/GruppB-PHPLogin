@@ -6,7 +6,7 @@ class Login
 {
     private $password;
     private $email;
-    
+
     public function __construct($email, $password)
     {
         $this->checkValdation($email, $password);
@@ -17,7 +17,7 @@ class Login
         $this->checkIfEmailExists($this->email);
     }
 
-    private function checkValdation($email, $password) 
+    private function checkValdation($email, $password)
     {
         $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->password = filter_var($password, FILTER_SANITIZE_STRING);
@@ -29,7 +29,7 @@ class Login
         $stmt->execute([$email]);
         $row = $stmt->fetch();
         session_start();
-        if ($row = $stmt->rowCount() > 0) {
+        if ($stmt->rowCount() > 0) {
             $this->checkLogin($row);
         } else {
             $_SESSION["error"] = "Email does not exist";
@@ -41,7 +41,6 @@ class Login
         if (password_verify($this->password, $row['password'])) {
             $_SESSION["username"] = $row["username"];
             $_SESSION["email"] = $row["email"];
-            
         } else {
             $_SESSION["error"] = "Wrong password";
         }

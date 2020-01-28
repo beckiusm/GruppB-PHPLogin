@@ -22,8 +22,8 @@ class Login
     {
         $stmt = $this->db->prepare("SELECT email FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        if ($stmt->rowCount() < 0) {
-            $_SESSION["signin"] = "Username doesn't exists!";
+        if ($stmt->rowCount() = 0) {
+            $_SESSION["signin"] = "Email doesn't exists!";
         } else {
             $this->alreadyUser($this->username, $this->password, $this->email);
             $_SESSION["singin"] = "Sign In success!";

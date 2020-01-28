@@ -13,7 +13,7 @@ class Register
     {
         $this->checkValdation($email, $username, $password);
         $db = new DB();
-        $this->db = $db->pdo;
+        $this->db = $db->getDB();
         $this->hashPassword($this->password);
         $this->checkIfUserExists($this->email);
     }

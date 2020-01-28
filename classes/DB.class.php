@@ -9,7 +9,7 @@ class DB
     private $pass;
     private $charset;
     private $options;
-    public $pdo;
+    private $pdo;
 
     public function __construct()
     {
@@ -37,5 +37,9 @@ class DB
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int) $e->getCode());
         }
+    }
+    public function getDB()
+    {
+        return $this->pdo;
     }
 }

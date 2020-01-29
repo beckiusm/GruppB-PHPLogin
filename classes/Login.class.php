@@ -1,5 +1,4 @@
 <?php
-
 include_once("DB.class.php");
 
 class Login
@@ -33,7 +32,7 @@ class Login
         if ($stmt->rowCount() > 0) {
             $this->checkLogin($row);
         } else {
-            $_SESSION["error"] = "Email does not exist";
+            $_SESSION["error"] = "Email is wrong/does not exist";
         }
     }
 

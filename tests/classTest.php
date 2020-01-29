@@ -12,7 +12,7 @@ class registerTest extends TestCase
     public $username = "TestUser";
     public $password = "123";
     public $email = "123@hotmail.com";
-    public $notAnEmail = "notAnEmail";
+    public $notAnEmail = "notAnEmail@gotmail...com";
 
     public function testClassesIsObject()
     {
@@ -48,7 +48,7 @@ class registerTest extends TestCase
 
     public function testLogOut()
     {
-        session_unset();
+        $_SESSION = [];
         session_destroy();
         $this->assertTrue(empty($_SESSION));
     }

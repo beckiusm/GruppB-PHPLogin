@@ -1,6 +1,5 @@
 <?php
 $title = "Login";
-include("classes/Register.class.php");
 include("includes/header.php");
 include("includes/checklogin.php");
 

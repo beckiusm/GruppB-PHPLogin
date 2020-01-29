@@ -14,7 +14,7 @@ class registerTest extends TestCase
     public $email = "123@hotmail.com";
     public $notAnEmail = "notAnEmail@gotmail...com";
 
-    public function testClassesIsObject()
+    public function testClassesIsObject() // test if new instance of class is working
     {
         $login = new Login($this->email, $this->password);
         $register = new Register($this->username, $this->password, $this->email);
@@ -24,32 +24,32 @@ class registerTest extends TestCase
         $this->assertIsObject($db->getDB());
     }
 
-    public function testClassHasAttribute()
+    public function testClassHasAttribute() // test if our variables exist in class
     {
         $this->assertClassHasAttribute("email", Register::class);
         $this->assertClassHasAttribute("username", Register::class);
         $this->assertClassHasAttribute("password", Register::class);
     }
 
-    public function testHashMethod()
+    public function testHashMethod() // test if the hash method is working
     {
         $hashedPw = password_hash($this->password, PASSWORD_DEFAULT);
         $this->assertTrue(password_verify($this->password, $hashedPw));
     }
-    public function testEmail()
+    public function testEmail() // test if filter method is working
     {
         $this->assertFalse(filter_var($this->notAnEmail, FILTER_VALIDATE_EMAIL));
     }
 
-    public function testSessionEmail()
+    public function testSessionEmail() // test if our session variables are getting set
     {
         $this->assertSame($this->email, $_SESSION['email']);
+        $this->assertSame($this->username, $_SESSION['username']);
     }
 
-    public function testLogOut()
+    public function testLogOut() // test if logging out works
     {
         $_SESSION = [];
-        session_destroy();
         $this->assertTrue(empty($_SESSION));
     }
 }

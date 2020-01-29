@@ -7,7 +7,7 @@ class Login
     private $email;
     private $db;
 
-    public function __construct($email, $password)
+    public function __construct($email, $password) // try log in with these credentials
     {
         $this->checkValidation($email, $password);
         $this->password = $password;
@@ -17,13 +17,13 @@ class Login
         $this->checkIfEmailExists($this->email);
     }
 
-    private function checkValidation($email, $password)
+    private function checkValidation($email, $password) // validate input
     {
         $this->email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $this->password = filter_var($password, FILTER_SANITIZE_STRING);
     }
 
-    public function checkIfEmailExists($email)
+    public function checkIfEmailExists($email) // check if user in database
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
@@ -36,7 +36,7 @@ class Login
         }
     }
 
-    public function checkLogin($row)
+    public function checkLogin($row) // compares password
     {
         if (password_verify($this->password, $row['password'])) {
             $_SESSION["username"] = $row["username"];

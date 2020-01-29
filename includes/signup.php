@@ -6,13 +6,20 @@
             </div>
             <div class="card-body">
                 <form action="?" method="POST">
-                    <div class="d-flex justify-content-center text-info">
-                        <?php
-                        if (!empty($_SESSION["signup"])) {
-                            echo $_SESSION["signup"];
-                        }
-                        ?>
-                    </div>
+                    <?php
+                    if (isset($_SESSION["error"])) { // checks for errors and outputs them ?>
+                        <div class="d-flex justify-content-center text-danger mb-3">
+                            <?= $_SESSION["error"]; ?>
+                        </div>
+                    <?php unset($_SESSION["error"]);
+                    } elseif (isset($_SESSION["success"])) { // same but for success
+                    ?>
+                        <div class="d-flex justify-content-center text-info mb-3">
+                            <?= $_SESSION["success"]; ?>
+                        </div>
+                    <?php unset($_SESSION["success"]);
+                    }
+                    ?>
                     <div class="input-group form-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>

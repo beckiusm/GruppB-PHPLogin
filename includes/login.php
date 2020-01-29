@@ -18,21 +18,19 @@
                         </div>
                         <input type="password" class="form-control" placeholder="password" name="password" required>
                     </div>
-                    <div class="row align-items-center remember">
+                    <!--<div class="row align-items-center remember"> // not being used
                         <input type="checkbox">Remember Me
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <input type="submit" value="Login" class="btn float-right login_btn">
                     </div>
                 </form>
             </div>
-            <div class="d-flex justify-content-center text-danger">
+            <div class="d-flex justify-content-center text-danger mb-3">
                 <?php
-                if (!empty($_SESSION["error"])) {
+                if (isset($_SESSION["error"])) { // checks for errors and outputs them
                     echo $_SESSION["error"];
-                }
-                if (!empty($_SESSION["signup"])) {
-                    echo $_SESSION["signup"];
+                    unset($_SESSION["error"]);
                 }
                 ?>
             </div>

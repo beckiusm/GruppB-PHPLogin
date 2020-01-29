@@ -14,8 +14,8 @@
       </div>
       <div class="inner cover">
         <h1 class="cover-heading">You are now logged in!</h1>
-        <p class="lead">Username : <?php echo $_SESSION['username'] ?></p>
-        <p class="lead">Email : <?php echo $_SESSION['email'] ?></p>
+        <p class="lead">Username : <?= $_SESSION['username'] ?></p>
+        <p class="lead">Email : <?= $_SESSION['email'] ?></p>
       </div>
       <div class="mastfoot">
         <div class="inner">

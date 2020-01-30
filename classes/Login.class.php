@@ -10,11 +10,25 @@ class Login
     public function __construct($email, $password) // try log in with these credentials
     {
         $this->checkValidation($email, $password);
-        $this->password = $password;
-        $this->email = $email;
+        $this->setPassword($password);
+        $this->setEmail($email);
         $db = new DB();
-        $this->db = $db->getDB();
+        $this->setDB($db);
         $this->checkIfEmailExists($this->email);
+    }
+
+    protected function setDB($db)
+    {
+        $this->db = $db->getDB();
+    }
+
+    protected function setEmail($email)
+    {
+        $this->email = $email;
+    }
+    protected function setPassword($password)
+    {
+        $this->password = $password;
     }
 
     private function checkValidation($email, $password) // validate input

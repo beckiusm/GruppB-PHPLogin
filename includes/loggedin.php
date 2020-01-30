@@ -1,4 +1,6 @@
-<div class="site-wrapper">
+<?php
+if(!empty($_SESSION['username'])) { ?>
+  <div class="site-wrapper">
   <div class="site-wrapper-inner">
     <div class="cover-container">
       <div class="masthead clearfix">
@@ -26,3 +28,8 @@
     </div>
   </div>
 </div>
+<?php
+} else {
+  header('location: ../');
+}
+?>

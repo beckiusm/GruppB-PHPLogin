@@ -1,5 +1,5 @@
 # GruppB-PHPLogin
 
-# Medlemmar Mathias, Jonas, Nitipon
+Medlemmar Mathias, Jonas, Nitipon
 
-# Login/register sida med PHP, PDO, PHPUnit tests, MYSQL, apache
+Login/register sida med PHP, PDO, PHPUnit tests, MYSQL, apache

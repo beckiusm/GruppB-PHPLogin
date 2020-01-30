@@ -2,7 +2,7 @@
 $title = "Register";
 include("includes/header.php");
 
-include("includes/checkSignUp.php");
+include("checkValidations/checkSignUp.php");
 include("includes/signup.php");
 
 include("includes/footer.php");

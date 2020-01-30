@@ -17,16 +17,16 @@ class Login
         $this->checkIfEmailExists($this->email);
     }
 
-    protected function setDB($db)
+    private function setDB($db)
     {
         $this->db = $db->getDB();
     }
 
-    protected function setEmail($email)
+    private function setEmail($email)
     {
         $this->email = $email;
     }
-    protected function setPassword($password)
+    private function setPassword($password)
     {
         $this->password = $password;
     }
@@ -37,7 +37,7 @@ class Login
         $this->password = filter_var($password, FILTER_SANITIZE_STRING);
     }
 
-    public function checkIfEmailExists($email) // check if user in database
+    private function checkIfEmailExists($email) // check if user in database
     {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
@@ -50,7 +50,7 @@ class Login
         }
     }
 
-    public function checkLogin($row) // compares password
+    private function checkLogin($row) // compares password
     {
         if (password_verify($this->password, $row['password'])) {
             $_SESSION["username"] = $row["username"];

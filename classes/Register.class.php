@@ -14,6 +14,8 @@ class Register
         $this->checkValidation($email, $username, $password);
         if ($this->email === false) {
             $_SESSION["error"] = "Invalid email format.";
+        } elseif (!preg_match('/^[\w]+$/', $username)) {
+            $_SESSION["error"] = "Username can only contain letters, numbers and underscore.";
         } else {
             $db = new DB();
             $this->db = $db->getDB();
@@ -41,7 +43,7 @@ class Register
         }
     }
 
-    public function hashPassword($password) // hash password
+    private function hashPassword($password) // hash password
     {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
